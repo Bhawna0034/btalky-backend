@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import dotenv from "dotenv";
 
 dotenv.config();
+const PORT = process.env.PORT || 10000;
 const app = express();
 const server = http.createServer(app);
 const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
