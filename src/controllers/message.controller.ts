@@ -9,7 +9,7 @@ import { FilterQuery } from "mongoose";
 export const getUsersForSidebar = async (req: Request, res: Response) => {
   try {
     const {search} = req.query;
-    const loggedInUserId = req.user._id;
+    const loggedInUserId = req.user!._id;
     console.log(loggedInUserId);
     const query: FilterQuery<typeof User> = {
       _id: { $ne: loggedInUserId },
@@ -31,7 +31,7 @@ export const getUsersForSidebar = async (req: Request, res: Response) => {
 export const getMessages = async (req: Request, res: Response) => {
   try {
     const { id: userToChatId } =  req.params;
-    const myId = await req.user._id;
+    const myId = await req.user!._id;
     const messages = await Message.find({
       $or: [
         { senderId: myId, receiverId: userToChatId },
@@ -50,7 +50,7 @@ export const sendMessage = async (req: Request, res: Response) => {
   const { id: receiverId } = req.params as {id: string};
   const { text, image } = req.body;
   try {
-    const senderId = req.user._id;
+    const senderId = req.user!._id;
 
     const newMessage = new Message({
       senderId,
@@ -73,7 +73,7 @@ export const sendMessage = async (req: Request, res: Response) => {
 export const deleteChat = async(req: Request, res: Response) => {
   try {
     const { id: chatId } = req.params;
-    const myId = req.user._id;
+    const myId = req.user!._id;
     await Message.deleteMany({
       $or: [
         { senderId: myId, receiverId: chatId },

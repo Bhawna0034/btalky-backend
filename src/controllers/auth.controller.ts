@@ -90,7 +90,7 @@ export const logout = (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
   const { profilePic, fullName, phone } = req.body;
   try {
-    const userId = req.user._id;
+    const userId = req.user!._id;
    
     const updatedUser = await User.findByIdAndUpdate(
       userId,
