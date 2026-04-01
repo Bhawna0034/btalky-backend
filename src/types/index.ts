@@ -1,5 +1,7 @@
-export interface IUser extends Document {
-  _id: string;
+import { Types } from "mongoose";
+
+export interface IUser {
+  _id: Types.ObjectId;
   fullName: string;
   email: string;
   password?: string;
@@ -8,10 +10,13 @@ export interface IUser extends Document {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
 declare global {
   namespace Express {
     interface Request {
-      user?: IUser; // now req.user is typed
+      user?: IUser;
     }
   }
 }
+
+export {};
